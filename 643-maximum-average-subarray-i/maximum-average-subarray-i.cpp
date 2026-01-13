@@ -13,7 +13,7 @@ public:
 
         // sliding window
         for(int r = k; r < nums.size(); r++){
-            sum = sum + nums[r] - nums[l];   // ✅ FIX
+            sum = sum + nums[r] - nums[l];   
             double avg = sum / k;
             maxavg = max(maxavg, avg);
             l++;
