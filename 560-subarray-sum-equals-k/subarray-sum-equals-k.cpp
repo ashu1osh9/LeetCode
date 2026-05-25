@@ -34,7 +34,7 @@
 class Solution {
 public:
     int subarraySum(vector<int>& nums, int k) {
-        // with two pointer method
+        // brute force
         int n=nums.size();
         int i=0;
         int j=0;
