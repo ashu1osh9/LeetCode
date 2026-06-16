@@ -1,20 +1,63 @@
+// class Solution {
+// public:
+//     // memoization
+//     vector<int> dp;
+
+//     int solve(vector<int>& nums, int st, int end) {
+//         if (st > end) {
+//             return 0;
+//         }
+
+//         if (dp[st] != -1) {
+//             return dp[st];
+//         }
+
+//         int take = nums[st] + solve(nums, st + 2, end);
+//         int notTake = solve(nums, st + 1, end);
+
+//         return dp[st] = max(take, notTake);
+//     }
+
+//     int rob(vector<int>& nums) {
+//         int n = nums.size();
+
+//         if (n == 1) {
+//             return nums[0];
+//         }
+
+//         dp.assign(n, -1);
+//         int first = solve(nums, 0, n - 2);
+
+//         dp.assign(n, -1);  
+//         int last = solve(nums, 1, n - 1);
+
+//         return max(first, last);
+//     }
+
+   
+//     }
+// };
+
 class Solution {
 public:
     vector<int> dp;
 
-    int solve(vector<int>& nums, int st, int end) {
-        if (st > end) {
-            return 0;
+    int solve(vector<int>& nums, int start, int end) {
+        if (start == end) {
+            return nums[start];
         }
 
-        if (dp[st] != -1) {
-            return dp[st];
+        dp[start] = nums[start];
+        dp[start + 1] = max(nums[start], nums[start + 1]);
+
+        for (int i = start + 2; i <= end; i++) {
+            int take = nums[i] + dp[i - 2];
+            int notTake = dp[i - 1];
+
+            dp[i] = max(take, notTake);
         }
 
-        int take = nums[st] + solve(nums, st + 2, end);
-        int notTake = solve(nums, st + 1, end);
-
-        return dp[st] = max(take, notTake);
+        return dp[end];
     }
 
     int rob(vector<int>& nums) {
@@ -24,10 +67,12 @@ public:
             return nums[0];
         }
 
-        dp.assign(n, -1);
+        // Case 1: last house excluded
+        dp.assign(n, 0);
         int first = solve(nums, 0, n - 2);
 
-        dp.assign(n, -1);  
+        // Case 2: first house excluded
+        dp.assign(n, 0);
         int last = solve(nums, 1, n - 1);
 
         return max(first, last);
