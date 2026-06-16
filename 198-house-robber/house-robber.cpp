@@ -1,5 +1,6 @@
 class Solution {
 public:
+// memoization
     vector<int>dp;
     int solve(vector<int>&nums,int n){
         if(n==0){
