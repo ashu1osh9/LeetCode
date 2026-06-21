@@ -1,21 +1,48 @@
 class Solution {
 public:
-    bool canPartition(vector<int>& nums) {
-        int total = accumulate(nums.begin(), nums.end(), 0);
-
-        if (total % 2) return false;
-
-        int target = total / 2;
-
-        vector<bool> dp(target + 1, false);
-        dp[0] = true;
-
-        for (int num : nums) {
-            for (int s = target; s >= num; --s) {
-                dp[s] = dp[s] || dp[s - num];
-            }
+    vector<vector<int>>dp;
+    bool solve(vector<int>& nums, int index, int target) {
+        // target mil gaya
+        if (target == 0) {
+            return true;
         }
 
-        return dp[target];
+        // saare elements khatam ho gaye
+        if (index >= nums.size()) {
+            return false;
+        }
+    if(dp[index][target]!= -1){
+        return dp[index][target];
+    }
+        // current element lena
+        bool take = false;
+        if (nums[index] <= target) {
+            take = solve(nums, index + 1, target - nums[index]);
+        }
+
+        // current element na lena
+        bool nottake = solve(nums, index + 1, target);
+
+        return dp[index][target] = take || nottake;
+    }
+
+    bool canPartition(vector<int>& nums) {
+        int sum = 0;
+        int n = nums.size();
+
+        for (int x : nums) {
+            sum += x;
+        }
+        int m = sum;
+        dp.assign(n,vector<int>(m,-1));
+
+        // odd sum ko equal divide nahi kar sakte
+        if (sum % 2 != 0) {
+            return false;
+        }
+
+        int target = sum / 2;
+
+        return solve(nums, 0, target);
     }
 };
