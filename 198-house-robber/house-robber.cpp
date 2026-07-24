@@ -88,6 +88,34 @@
 
 // tabulation  with transition state define the table 
 
+// class Solution {
+// public:
+//     vector<int> dp;
+
+//     int rob(vector<int>& nums) {
+
+//         int n = nums.size();
+
+//         dp.assign(n + 2, 0);
+
+//         dp[n] = 0;
+//         dp[n + 1] = 0;
+
+//         for(int i = n - 1; i >= 0; i--) {
+
+//             int h1 = nums[i] + dp[i + 2];
+//             int h2 = dp[i + 1];
+
+//             dp[i] = max(h1, h2);
+//         }
+
+//         return dp[0];
+//     }
+// };
+
+// tabulation without transitation state dp assign 
+// dp size assign with the respect of transition state
+
 class Solution {
 public:
     vector<int> dp;
@@ -96,15 +124,20 @@ public:
 
         int n = nums.size();
 
-        dp.assign(n + 2, 0);
-
-        dp[n] = 0;
-        dp[n + 1] = 0;
+        dp.assign(n, 0);
 
         for(int i = n - 1; i >= 0; i--) {
 
-            int h1 = nums[i] + dp[i + 2];
-            int h2 = dp[i + 1];
+            int h1 = nums[i];
+            int h2 = 0;
+
+            if(i + 2 < n) {
+                h1 += dp[i + 2];
+            }
+
+            if(i + 1 < n) {
+                h2 = dp[i + 1];
+            }
 
             dp[i] = max(h1, h2);
         }
