@@ -1,21 +1,72 @@
+
+// class Solution {
+// public:
+
+//     int solve(vector<int>& nums, int index)
+//     {
+//         if(index >= nums.size() - 1)
+//         {
+//             return 0;
+//         }
+
+//         int ans = INT_MAX;
+
+//         for(int jump = 1; jump <= nums[index]; jump++)
+//         {
+//             int take = solve(nums, index + jump);
+
+//             if(take != INT_MAX)
+//             {
+//                 ans = min(ans, 1 + take);
+//             }
+//         }
+
+//         return ans;
+//     }
+
+//     int jump(vector<int>& nums)
+//     {
+//         return solve(nums, 0);
+//     }
+// };
+
 class Solution {
 public:
-    int jump(vector<int>& nums) {
+    vector<int> dp;
 
-        int jumps = 0;
-        int farthest = 0;
-        int end = 0;
+    int solve(vector<int>& nums, int index)
+    {
+        if(index >= nums.size() - 1)
+        {
+            return 0;
+        }
 
-        for(int i = 0; i < nums.size() - 1; i++) {
+        if(dp[index] != -1)
+        {
+            return dp[index];
+        }
 
-            farthest = max(farthest, i + nums[i]);
+        int ans = INT_MAX;
 
-            if(i == end) {
-                jumps++;
-                end = farthest;
+        for(int jump = 1; jump <= nums[index]; jump++)
+        {
+            int take = solve(nums, index + jump);
+
+            if(take != INT_MAX)
+            {
+                ans = min(ans, 1 + take);
             }
         }
 
-        return jumps;
+        return dp[index] = ans;
+    }
+
+    int jump(vector<int>& nums)
+    {
+        int n = nums.size();
+
+        dp.assign(n, -1);
+
+        return solve(nums, 0);
     }
 };
