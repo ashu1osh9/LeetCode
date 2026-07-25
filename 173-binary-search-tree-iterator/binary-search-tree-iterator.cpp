@@ -83,37 +83,77 @@
 
 
 // using the stack 
+// class BSTIterator {
+// public:
+//     stack<TreeNode*>st;
+//     void pushallleft(TreeNode* root){
+//         while(root != NULL){
+//             st.push(root);
+//             root = root ->left;
+//         }
+//     }
+
+//     BSTIterator(TreeNode* root) {
+//         pushallleft(root);
+//     }
+    
+//     int next() {
+
+//         TreeNode * curr = st.top();
+//         st.pop();
+//         if(curr->right!= NULL){
+//             pushallleft(curr->right);
+//         }
+
+
+//         return curr->val;
+
+        
+//     }
+    
+//     bool hasNext() {
+
+//         return !st.empty();
+        
+//     }
+// };
+
+// using the vector 
+
 class BSTIterator {
 public:
-    stack<TreeNode*>st;
-    void pushallleft(TreeNode* root){
-        while(root != NULL){
-            st.push(root);
-            root = root ->left;
+    vector<int>inorder;
+    int idx = 0;
+    void dfs(TreeNode* root){
+        if(root == NULL){
+            return ;
         }
+    dfs(root->left);
+    inorder.push_back(root->val);
+    dfs(root->right);
+
     }
 
     BSTIterator(TreeNode* root) {
-        pushallleft(root);
+        dfs(root);
+
+        
     }
     
     int next() {
 
-        TreeNode * curr = st.top();
-        st.pop();
-        if(curr->right!= NULL){
-            pushallleft(curr->right);
-        }
-
-
-        return curr->val;
-
+        int ans = inorder[idx];
+        idx++;
+        return ans ;
         
     }
     
     bool hasNext() {
-
-        return !st.empty();
-        
+        if(idx<inorder.size()){
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 };
