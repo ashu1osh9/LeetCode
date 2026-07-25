@@ -44,39 +44,76 @@
  * };
  */
 
+// class BSTIterator {
+// public:
+//     stack<TreeNode*> st;
+
+//     // Push all left nodes into stack
+//     void pushLeft(TreeNode* node) {
+//         while (node != NULL) {
+//             st.push(node);
+//             node = node->left;
+//         }
+//     }
+
+//     // Constructor
+//     BSTIterator(TreeNode* root) {
+//         pushLeft(root);
+//     }
+
+//     int next() {
+
+//         // Top node is the next smallest element
+//         TreeNode* temp = st.top();
+//         st.pop();
+
+//         // If right subtree exists,
+//         // push all its left nodes
+//         if (temp->right) {
+//             pushLeft(temp->right);
+//         }
+
+//         return temp->val;
+//     }
+
+//     bool hasNext() {
+//         return !st.empty();
+//     }
+// };
+
+
+// using the stack 
 class BSTIterator {
 public:
-    stack<TreeNode*> st;
-
-    // Push all left nodes into stack
-    void pushLeft(TreeNode* node) {
-        while (node != NULL) {
-            st.push(node);
-            node = node->left;
+    stack<TreeNode*>st;
+    void pushallleft(TreeNode* root){
+        while(root != NULL){
+            st.push(root);
+            root = root ->left;
         }
     }
 
-    // Constructor
     BSTIterator(TreeNode* root) {
-        pushLeft(root);
+        pushallleft(root);
     }
-
+    
     int next() {
 
-        // Top node is the next smallest element
-        TreeNode* temp = st.top();
+        TreeNode * curr = st.top();
         st.pop();
-
-        // If right subtree exists,
-        // push all its left nodes
-        if (temp->right) {
-            pushLeft(temp->right);
+        if(curr->right!= NULL){
+            pushallleft(curr->right);
         }
 
-        return temp->val;
-    }
 
+        return curr->val;
+
+        
+    }
+    
     bool hasNext() {
+
         return !st.empty();
+        
     }
 };
