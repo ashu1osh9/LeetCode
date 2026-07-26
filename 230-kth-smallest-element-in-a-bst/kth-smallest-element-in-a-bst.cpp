@@ -32,33 +32,73 @@
 //         return inorder[k-1];
 //     }
 // };
+
+
+// recursive dfs 
+// // T.C => 0(N) , S.C => 0(n);
+// class Solution {
+// public:
+
+//     int count = 0;
+//     int ans = 0;
+
+//     void dfs(TreeNode* root, int k){
+
+//         if(root == NULL)
+//             return;
+
+//         dfs(root->left, k);
+
+//         count++;
+
+//         if(count == k){
+//             ans = root->val;
+//             return;
+//         }
+
+//         dfs(root->right, k);
+//     }
+
+//     int kthSmallest(TreeNode* root, int k) {
+
+//         dfs(root, k);
+
+//         return ans;
+//     }
+// };
+
+// using the stack 
+
 class Solution {
 public:
 
-    int count = 0;
-    int ans = 0;
 
-    void dfs(TreeNode* root, int k){
-
-        if(root == NULL)
-            return;
-
-        dfs(root->left, k);
-
-        count++;
-
-        if(count == k){
-            ans = root->val;
-            return;
-        }
-
-        dfs(root->right, k);
-    }
 
     int kthSmallest(TreeNode* root, int k) {
 
-        dfs(root, k);
+        stack<TreeNode*>st;
+        TreeNode* curr = root;
 
-        return ans;
+        while(curr != NULL || !st.empty()){
+
+            while(curr){
+                st.push(curr);
+                curr = curr ->left;
+            }
+
+            TreeNode* value = st.top();
+            st.pop();
+
+            k--;
+            if(k==0){
+                return value->val;
+            }       
+
+            curr = value->right;
+        
+        }
+        
+
+        return -1;
     }
 };
