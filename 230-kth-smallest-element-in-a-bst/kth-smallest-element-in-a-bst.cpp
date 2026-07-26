@@ -9,6 +9,10 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
+
+
+
+ // T.c => O(v) S.C => O(V) 
 class Solution {
 public:
 vector<int>inorder;
@@ -28,3 +32,17 @@ vector<int>inorder;
         return inorder[k-1];
     }
 };
+// class Solution {
+// public:
+//     int kthSmallest(TreeNode* root, int k) {
+//         if(root == NULL){
+//             return -1;
+//         }
+//         while(k){
+//             root = root->left;
+//             k--;
+//         }
+//         return root->val;
+        
+//     }
+// };
