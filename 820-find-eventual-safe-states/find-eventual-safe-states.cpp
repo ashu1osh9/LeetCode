@@ -1,3 +1,6 @@
+// T.C => 0(h) -- finding the safe node thats why ..reverse topology 
+// s.c = > O(v)
+
 class Solution {
 public:
     vector<int> eventualSafeNodes(vector<vector<int>>& graph) {
