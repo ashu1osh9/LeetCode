@@ -1,3 +1,4 @@
+//T.C => O(N)
 class Solution {
 public:
     typedef pair<int,int>P;
