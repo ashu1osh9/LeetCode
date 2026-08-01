@@ -33,27 +33,47 @@
 //     }
 // };
 
-// dfs iterative 
+// // dfs iterative 
+// class Solution {
+// public:
+//     TreeNode* searchBST(TreeNode* root, int val) {
+
+//         stack<TreeNode*> st;
+
+//         while (root != NULL || !st.empty()) {
+
+//             while (root != NULL) {
+//                 st.push(root);
+//                 root = root->left;
+//             }
+
+//             TreeNode* curr = st.top();
+//             st.pop();
+
+//             if (curr->val == val)
+//                 return curr;
+
+//             root = curr->right;
+//         }
+
+//         return NULL;
+//     }
+// };
+// bst property --=> 
 class Solution {
 public:
     TreeNode* searchBST(TreeNode* root, int val) {
 
-        stack<TreeNode*> st;
+        while (root != NULL) {
 
-        while (root != NULL || !st.empty()) {
+            if (root->val == val)
+                return root;
 
-            while (root != NULL) {
-                st.push(root);
+            else if (val < root->val)
                 root = root->left;
-            }
 
-            TreeNode* curr = st.top();
-            st.pop();
-
-            if (curr->val == val)
-                return curr;
-
-            root = curr->right;
+            else
+                root = root->right;
         }
 
         return NULL;
