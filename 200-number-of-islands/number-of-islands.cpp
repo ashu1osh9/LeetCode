@@ -1,40 +1,52 @@
+// T.C => O(N*M)  S.C => O(N*M)
 class Solution {
 public:
-    vector<pair<int, int>> directions = {
-        {-1, 0},
-        {1, 0},
-        {0, -1},
-        {0, 1}
-    };
-
     int numIslands(vector<vector<char>>& grid) {
+
         int n = grid.size();
         int m = grid[0].size();
 
+        vector<vector<int>> direction = {
+            {-1, 0},
+            {1, 0},
+            {0, -1},
+            {0, 1}
+        };
+
         int islands = 0;
-        queue<pair<int, int>> q;
 
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
 
                 if (grid[i][j] == '1') {
+
                     islands++;
-                    q.push({i, j});
+
+                    queue<pair<int, int>> que;
+                    que.push({i, j});
+
+                    // Mark visited
                     grid[i][j] = '0';
 
-                    while (!q.empty()) {
-                        auto [x, y] = q.front();
-                        q.pop();
+                    while (!que.empty()) {
 
-                        for (auto dir : directions) {
-                            int nx = x + dir.first;
-                            int ny = y + dir.second;
+                        pair<int, int> curr = que.front();
+                        que.pop();
 
-                            if (nx >= 0 && ny >= 0 && nx < n && ny < m &&
-                                grid[nx][ny] == '1') {
+                        int row = curr.first;
+                        int col = curr.second;
 
-                                grid[nx][ny] = '0';
-                                q.push({nx, ny});
+                        for (vector<int> dir : direction) {
+
+                            int nr = row + dir[0];
+                            int nc = col + dir[1];
+
+                            if (nr >= 0 && nr < n &&
+                                nc >= 0 && nc < m &&
+                                grid[nr][nc] == '1') {
+
+                                grid[nr][nc] = '0';   // visited
+                                que.push({nr, nc});
                             }
                         }
                     }
