@@ -18,7 +18,7 @@
         
 //     }
 // };
-
+// T.C => O(N) , s.c => O(n)
 class Solution {
 public:
     int removeDuplicates(vector<int>& nums) {
@@ -31,7 +31,8 @@ public:
 
         int i = 0;
         for(int x : s){
-            nums[i++] = x;
+            nums[i] = x;
+            i++;
         }
 
         return s.size();
