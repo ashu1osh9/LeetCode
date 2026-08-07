@@ -1,3 +1,4 @@
+// T.c = o(N) --- 
 class Solution {
 public:
 
