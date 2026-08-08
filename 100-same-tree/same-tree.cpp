@@ -9,7 +9,7 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
- // dfs -- inorder/ preorder.postorder se kar sakte hai -- 
+ // dfs --  preorder/postorder se kar sakte hai -- 
  // T.C => O(N) , S.C => O(N) -- 
 class Solution {
 public:
