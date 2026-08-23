@@ -1,5 +1,6 @@
 class Solution {
 public:
+    // T.C = > O(V*E)
     bool dfs(vector<vector<int>>& adj, vector<int>& color, int node,
                int currcolor) {
 
@@ -29,14 +30,14 @@ public:
 
         vector<vector<int>> adj(n);
         vector<int>color(n,-1);
-
+// O(E*V)
         for (int i = 0; i < n; i++) {
 
             for (int x : graph[i]) {
                 adj[i].push_back(x);
             }
         }
-
+// O(V)
         for (int i = 0; i < graph.size(); i++) {
 
             if (color[i] == -1) {
