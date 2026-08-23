@@ -1,6 +1,6 @@
 class Solution {
 public:
-    bool solve(vector<vector<int>>& adj, vector<int>& color, int node,
+    bool dfs(vector<vector<int>>& adj, vector<int>& color, int node,
                int currcolor) {
 
         color[node] = currcolor;
@@ -15,7 +15,7 @@ public:
 
                 int colorV = 1 - currcolor;
 
-                if (solve(adj, color, e, colorV) == false) {
+                if (dfs(adj, color, e, colorV) == false) {
                     return false;
                 }
             }
@@ -40,7 +40,7 @@ public:
         for (int i = 0; i < graph.size(); i++) {
 
             if (color[i] == -1) {
-                if(solve(adj, color, i, 1)==false) return false;
+                if(dfs(adj, color, i, 1)==false) return false;
             }
         }
 
