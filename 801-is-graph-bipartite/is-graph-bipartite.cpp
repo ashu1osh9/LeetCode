@@ -1,47 +1,101 @@
+// class Solution {
+// public:
+//     // T.C = ]o(Elog(v))
+//     bool dfs(vector<vector<int>>& adj, vector<int>& color, int node,
+//                int currcolor) {
+
+//         color[node] = currcolor;
+
+//         for (auto& e : adj[node]) {
+
+//             if (color[e] == currcolor) {
+//                 return false;
+//             }
+
+//             if (color[e] == -1) {
+
+//                 int colorV = 1 - currcolor;
+
+//                 if (dfs(adj, color, e, colorV) == false) {
+//                     return false;
+//                 }
+//             }
+//         }
+
+//         return true;
+//     }
+//     bool isBipartite(vector<vector<int>>& graph) {
+
+//         int n = graph.size();
+
+//         vector<vector<int>> adj(n);
+//         vector<int>color(n,-1);
+// //
+//         for (int i = 0; i < n; i++) {
+
+//             for (int x : graph[i]) {
+//                 adj[i].push_back(x);
+//             }
+//         }
+// 
+//         for (int i = 0; i < graph.size(); i++) {
+
+//             if (color[i] == -1) {
+//                 if(dfs(adj, color, i, 1)==false) return false;
+//             }
+//         }
+
+//         return true;
+//     }
+// };
+
+// BFS - -- > T.C => O(Elogv)
 class Solution {
 public:
-    // T.C = > O(V*E)
-    bool dfs(vector<vector<int>>& adj, vector<int>& color, int node,
-               int currcolor) {
 
-        color[node] = currcolor;
+    bool bfs(int start, vector<vector<int>>& graph, vector<int>& color) {
 
-        for (auto& e : adj[node]) {
+        queue<int> q;
 
-            if (color[e] == currcolor) {
-                return false;
-            }
+        color[start] = 1;
+        q.push(start);
 
-            if (color[e] == -1) {
+        while(!q.empty()) { // O(V)
 
-                int colorV = 1 - currcolor;
+            int node = q.front();
+            q.pop(); // T.C = O(logv)
 
-                if (dfs(adj, color, e, colorV) == false) {
+            for(auto e : graph[node]) { // O(E)
+
+                if(color[e] == color[node]) {
                     return false;
+                }
+
+                if(color[e] == -1) {
+                    color[e] = 1 - color[node];
+                    q.push(e);  // O(logv)
                 }
             }
         }
 
         return true;
     }
+
     bool isBipartite(vector<vector<int>>& graph) {
 
-        int n = graph.size();
+        int v = graph.size();
 
-        vector<vector<int>> adj(n);
-        vector<int>color(n,-1);
-// O(E*V)
-        for (int i = 0; i < n; i++) {
+        vector<int> color(v, -1);
 
-            for (int x : graph[i]) {
-                adj[i].push_back(x);
-            }
-        }
-// O(V)
-        for (int i = 0; i < graph.size(); i++) {
+        for(int i = 0; i < v; i++) {
 
-            if (color[i] == -1) {
-                if(dfs(adj, color, i, 1)==false) return false;
+            if(color[i] == -1) {
+
+                bool ans = bfs(i, graph, color);
+
+                if(ans == false) {
+                    return false;
+                }
             }
         }
 
