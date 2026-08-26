@@ -1,26 +1,41 @@
 class Solution {
 public:
     vector<int>parent;
+    vector<int>rank;
     int find(int u){
 
         if(u == parent[u]) return u ;
 
-        return parent[u] = find(parent[u]);
+        return find(parent[u]);
     }
 
+// rank 
     void Union (int u , int v){
         int u_parent = find(u);
         int v_parent = find(v);
 
-        if(u_parent == v_parent) return ;
+        if(rank[u_parent] == rank[v_parent]){
 
-        if(u_parent != v_parent){
+            parent[v_parent] = u_parent;
+            rank[u_parent]++;
+
+
+        }
+
+        if(rank[u_parent]>rank[v_parent]){
+            parent[v_parent] = u_parent;
+        }
+        if(rank[u_parent]<rank[v_parent]){
             parent[u_parent] = v_parent;
         }
+
+        
     }
     bool equationsPossible(vector<string>& equations) {
 
         parent.assign(26,0);
+          rank.assign(26, 0);
+
 
         for(int i = 0;i<26;i++){
             parent[i] = i;
