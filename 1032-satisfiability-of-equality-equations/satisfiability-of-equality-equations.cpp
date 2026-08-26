@@ -1,5 +1,6 @@
 class Solution {
 public:
+ // T.C = O(V+E)
     vector<int>parent;
     vector<int>rank;
     int find(int u){
