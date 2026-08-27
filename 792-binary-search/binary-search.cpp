@@ -1,5 +1,7 @@
 class Solution {
 public:
+// t.c = log n
+
     int search(vector<int>& nums, int target) {
         int l = 0;
         int r = nums.size()-1;
