@@ -37,7 +37,7 @@ public:
     }
 
     int maxPalindromes(string s, int k) {
-        dp.assign(s.size()+1, vector<int>(k+1, -1));
+        dp.assign(s.size(), vector<int>(k+1, -1));
 
         return solve(0, s, k);
     }
