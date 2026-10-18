@@ -1,5 +1,6 @@
 class Solution {
 public:
+// T.C = O(NlogN)
     vector<pair<int,int>>ans;
     int minSwaps(vector<int>& nums) {
 
